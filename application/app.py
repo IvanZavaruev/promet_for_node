@@ -1,8 +1,10 @@
+import imp
 from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost:5432/test'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL") #'postgresql://postgres:admin@localhost:5432/test'
 db = SQLAlchemy(app)
 
 
@@ -47,4 +49,4 @@ def add_message():
     return redirect(url_for('main'))
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=5000)

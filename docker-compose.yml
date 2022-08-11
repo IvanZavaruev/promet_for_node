@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    build: ./application
+    environment:
+      - DATABASE_URL=postgresql://iz_user:iz_psw@db:5432/iz_dbname
+
+    expose:
+      - 5000
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - ./pg_db:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=iz_user
+      - POSTGRES_PASSWORD=iz_psw
+      - POSTGRES_DB=iz_dbname
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+
+    depends_on:
+      - app
