@@ -47,4 +47,4 @@ def add_message():
     return redirect(url_for('main'))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000)
